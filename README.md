@@ -12,7 +12,7 @@ Post Creation with validation.
 Post Listing on the homepage.
 User-specific Post Editing and Deletion.
 <h2>Technologies </h2>
-<h3>>Backend:</h3>
+<h3>Backend:</h3>
 
 Node.js
 Express.js
@@ -20,7 +20,7 @@ MySQL
 Sequelize
 Multer
 Cors
-<h3>>Frontend: </h3
+<h3>Frontend: </h3
 
 React.js
 Material UI
