@@ -27,7 +27,7 @@ export default function Homepage() {
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {datas &&
           datas.map((data) => {
-            return <PostCard data={data} userid={userid} />;
+            return <PostCard data={data} userid={userid} onLoading={onLoading}/>;
           })}
       </div>
     </div>
