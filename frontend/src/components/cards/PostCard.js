@@ -8,9 +8,22 @@ import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Stack from "@mui/material/Stack";
+import EditIcon from "@mui/icons-material/Edit";
 
-export default function PostCard({ data, userid }) {
+export default function PostCard({ data, userid, onLoading }) {
   const navigate = useNavigate();
+
+  //// Formatting Date----------
+  const date = new Date(data.createdAt);
+  const year = date.getFullYear();
+  const month = date.toLocaleString("default", { month: "short" });
+  const day = date.getDate();
+  const formattedDate = `${year}-${month}-${day.toString().padStart(2, "0")}`;
+  //--------------------------------
+
   const Edit = () => {
     if (data.userid !== userid) {
       return alert("You do not have permission to edit this post");
@@ -24,12 +37,17 @@ export default function PostCard({ data, userid }) {
         `http://localhost:8081/blog/${data.id}`,
         { userid }
       );
-
-      // Handle the response, e.g., show a success message
-      alert(response.data.message);
+      const result = response.data;
+      console.log("result", result);
+      if (result.status === "success") {
+        alert(result.message); // Displaying a success alert.
+        onLoading();
+      } else {
+        alert(result.message); // Displaying an error alert.
+      }
     } catch (error) {
-      // Handle errors, e.g., display an error message
-      console.error("Error creating post:", error);
+      console.error(error);
+      alert("An error occurred");
     }
   };
   return (
@@ -37,11 +55,11 @@ export default function PostCard({ data, userid }) {
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            S
           </Avatar>
         }
         title={data.title}
-        subheader={data.createdAt}
+        subheader={formattedDate}
       />
       <CardMedia
         component="img"
@@ -49,13 +67,41 @@ export default function PostCard({ data, userid }) {
         image={"http://localhost:8081/" + data.image}
         alt={data.title}
       />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
+      <CardContent
+        style={{
+          maxHeight: "100px",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        }}
+      >
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          style={{ whiteSpace: "normal" }}
+        >
           {data.content}
         </Typography>
       </CardContent>
-      <button onClick={Edit}>Edit</button>
-      <button onClick={Delete}>Delete</button>
+      {/* <button onClick={Edit}>Edit</button> */}
+      <Stack direction="row" spacing={2} padding={2}>
+        <Button
+          variant="contained"
+          startIcon={<EditIcon />}
+          size="small"
+          onClick={Edit}
+        >
+          Edit
+        </Button>
+        <Button
+          variant="contained"
+          startIcon={<DeleteIcon />}
+          size="small"
+          onClick={Delete}
+        >
+          Delete
+        </Button>
+      </Stack>
+      {/* <button onClick={Delete}>Delete</button> */}
     </Card>
   );
 }

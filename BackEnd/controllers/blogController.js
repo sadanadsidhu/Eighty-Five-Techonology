@@ -27,7 +27,6 @@ const getAllBlogs = async (req, res) => {
 };
 
 // 3. Delete blog
-
 const deleteBlog = async (req, res) => {
   try {
     const blogId = req.params.id;
@@ -38,22 +37,28 @@ const deleteBlog = async (req, res) => {
     const blog = await Blog.findOne({ where: { id: blogId } });
 
     if (!blog) {
-      return res.status(404).json({ message: "Blog not found" });
+      return res
+        .status(404)
+        .json({ status: "error", message: "Blog not found" });
     }
 
     if (blog.userid !== userId) {
-      return (
-        res
-          // .status(403)
-          .json({ message: "You don't have permission to delete the post" })
-      );
+      return res.send({
+        status: "error",
+        message: "You don't have permission to delete the post",
+      });
     }
 
     await Blog.destroy({ where: { id: blogId } });
-    return res.status(200).json({ message: "Blog Deleted Successfully" });
+    return res.send({
+      status: "success",
+      message: "Blog Deleted Successfully",
+    });
   } catch (error) {
     console.error("Error:", error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res
+      .status(500)
+      .json({ status: "error", message: "Internal server error" });
   }
 };
 

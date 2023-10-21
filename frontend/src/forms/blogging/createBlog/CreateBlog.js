@@ -21,6 +21,8 @@ function CreateBlog({ userid, handleClose, onLoading }) {
   const [image, setImage] = useState();
   const [imageURL, setImageURL] = useState("");
 
+  const [submitState, setSubmitState] = useState(true);
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -32,6 +34,10 @@ function CreateBlog({ userid, handleClose, onLoading }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (error.title !== "" || error.content !== "" || error.image !== "") {
+      alert("Cannot submit data with an error");
+      return;
+    }
 
     const allData = new FormData();
     allData.append("userid", userid);
@@ -56,12 +62,7 @@ function CreateBlog({ userid, handleClose, onLoading }) {
       content: "",
       category: "",
     });
-    // } catch (error) {
-    //   // Handle errors, e.g., display an error message
-    //   console.error("Error creating post:", error);
-    // }
   };
-  //////handle onchange validation
   const handleImageChange = (e) => {
     try {
       const files = e.target.files[0];
@@ -124,47 +125,42 @@ function CreateBlog({ userid, handleClose, onLoading }) {
       <h2>Create Post</h2>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         {imageURL && <img src={imageURL} alt="blogimage" />}
-        <div>
-          <TextField
-            id="outlined-basic"
-            variant="outlined"
-            size="small"
-            label="Title"
-            type="text"
-            name="title"
-            value={formData.title}
-            onChange={handleInputChange}
+        <TextField
+          id="outlined-basic"
+          variant="outlined"
+          size="small"
+          label="Title"
+          type="text"
+          name="title"
+          value={formData.title}
+          onChange={handleInputChange}
+        />
+        <div className="error">{error.title && error.title}</div>
+        <Button
+          component="label"
+          variant="contained"
+          startIcon={<CloudUploadIcon />}
+        >
+          Upload file
+          <VisuallyHiddenInput
+            type="file"
+            name="image"
+            onChange={handleImageChange}
           />
-          <div className="error">{error.title && error.title}</div>
-        </div>
-        <div>
-          <Button
-            component="label"
-            variant="contained"
-            startIcon={<CloudUploadIcon />}
-          >
-            Upload file
-            <VisuallyHiddenInput
-              type="file"
-              name="image"
-              onChange={handleImageChange}
-            />
-          </Button>
-          <div className="error">{error.image && error.image}</div>
-        </div>
-        <div>
-          <TextField
-            id="outlined-basic"
-            variant="outlined"
-            label="Content"
-            type="text"
-            name="content"
-            value={formData.content}
-            onChange={handleInputChange}
-            multiline
-          />
-          <div className="error">{error.content && error.content}</div>
-        </div>
+        </Button>
+        <div className="error">{error.image && error.image}</div>
+        <TextField
+          id="outlined-basic"
+          variant="outlined"
+          label="Content"
+          type="text"
+          name="content"
+          value={formData.content}
+          onChange={handleInputChange}
+          multiline
+          fullWidth
+        />
+        <div className="error">{error.content && error.content}</div>
         <TextField
           id="outlined-basic"
           variant="outlined"

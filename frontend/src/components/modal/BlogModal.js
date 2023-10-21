@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import CreateBlog from "../../forms/blogging/createBlog/CreateBlog";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import "./blogmodal.scss"
+import "./blogmodal.scss";
 
 export default function BlogModal({ userid, onLoading }) {
   const [open, setOpen] = React.useState(false);
@@ -13,10 +13,7 @@ export default function BlogModal({ userid, onLoading }) {
   return (
     <div className="blogmodal">
       <div>
-        <Button
-          onClick={handleOpen}
-          className="button"
-        >
+        <Button onClick={handleOpen} className="button">
           <AddCircleOutlineIcon /> Add New Post
         </Button>
       </div>
@@ -31,13 +28,13 @@ export default function BlogModal({ userid, onLoading }) {
           alignItems: "center",
         }}
       >
-        <>
+        <div style={{maxHeight:"95vh",overflowY:"scroll",width:'80vw'}}>
           <CreateBlog
             userid={userid}
             handleClose={handleClose}
             onLoading={onLoading}
           />
-        </>
+        </div>
       </Modal>
     </div>
   );

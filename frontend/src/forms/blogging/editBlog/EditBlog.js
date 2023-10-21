@@ -97,7 +97,7 @@ function EditBlog() {
           ? "* Cannot exceed more than 150 characters"
           : "",
       content:
-        formData.content.length > 5
+        formData.content.length > 5000
           ? "* Cannot exceed more than 5000 characters"
           : "",
     }));
@@ -105,7 +105,10 @@ function EditBlog() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    if (error.title !== "" || error.content !== "" || error.image !== "") {
+      alert("Cannot submit data with an error");
+      return;
+    }
     const allData = new FormData();
     allData.append("title", formData.title);
     allData.append("content", formData.content);
@@ -148,7 +151,6 @@ function EditBlog() {
   });
 
   return (
-    <>
       <div className="editblog">
         <div className="card">
           <h2>Edit Blog</h2>
@@ -183,7 +185,7 @@ function EditBlog() {
                 onChange={handleImageChange}
               />
             </Button>
-            <div>{error.image && error.image}</div>
+            <div className="error">{error.image && error.image}</div>
             <TextField
               id="outlined-basic"
               variant="outlined"
@@ -194,7 +196,7 @@ function EditBlog() {
               onChange={handleInputChange}
               multiline
             />
-            <div>{error.content && error.content}</div>
+            <div className="error">{error.content && error.content}</div>
             <TextField
               id="outlined-basic"
               variant="outlined"
@@ -211,7 +213,6 @@ function EditBlog() {
           </form>
         </div>
       </div>
-    </>
   );
 }
 
