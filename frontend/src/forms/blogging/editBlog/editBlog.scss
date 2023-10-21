@@ -1,0 +1,30 @@
+.editblog{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    
+    .card{
+        width: 50vw;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        form{
+            background-color: rgb(219, 219, 219);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding:20px;
+
+            .error{
+                color: red;
+                font-size: 10px;
+            }
+        }
+    }
+
+
+}
+
+
+
