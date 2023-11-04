@@ -1,3 +1,9 @@
+![image](https://github.com/sadanadsidhu/Eighty-Five-Techonology/assets/121937172/72a65551-a874-4cc7-b546-be968930ec0a)
+![image](https://github.com/sadanadsidhu/Eighty-Five-Techonology/assets/121937172/acd7433e-4bf8-433f-83e9-318d5c2062d9)
+![image](https://github.com/sadanadsidhu/Eighty-Five-Techonology/assets/121937172/5df1d408-3f73-4afd-84fb-18fcaeb324a0)
+![image](https://github.com/sadanadsidhu/Eighty-Five-Techonology/assets/121937172/164bd893-6a54-41b3-9726-2b34211ad46b)
+![image](https://github.com/sadanadsidhu/Eighty-Five-Techonology/assets/121937172/da231a99-2d1d-4539-a08e-6158c7414261)
+
 <h1>Blog App</h1>
 This project is a full-stack web application built with React.js, Node.js, and MySQL. Users can sign up, log in, and create posts with Title, Content, Image, and Category. The project includes validation for post fields.
 
